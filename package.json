@@ -1,4 +1,4 @@
-{
+ {
   "name": "filterizer",
   "type": "module",
   "version": "0.0.1",
@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@sanity/client": "^6.24.3",
     "astro": "^5.1.5"
   }
 }
