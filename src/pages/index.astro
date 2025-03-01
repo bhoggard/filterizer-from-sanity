@@ -4,6 +4,11 @@ import { getVenuesGroupedByNeighborhood } from '../lib/sanity';
 
 const neighborhoodsWithVenues = await getVenuesGroupedByNeighborhood();
 
+// Filter out neighborhoods with no venues that have current events
+const filteredNeighborhoods = neighborhoodsWithVenues.filter(neighborhood => 
+  neighborhood.venues.some(venue => venue.events.length > 0)
+);
+
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -11,76 +16,34 @@ function formatDate(date: string) {
     day: 'numeric',
   });
 }
+
+function eventLink(venue, event) {
+  return event.website || venue.website;
+}
 ---
 
 <Layout title="Filterizer">
-  <main class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold text-center mb-8">Filterizer</h1>
     
-    {neighborhoodsWithVenues.map((neighborhood) => (
-      <section key={neighborhood._id} class="mb-12">
-        <h2 class="text-3xl font-semibold mb-6">{neighborhood.name}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {neighborhood.venues.map((venue) => (
-            <div class="bg-white rounded-lg shadow-md p-6" key={venue._id}>
-              <h3 class="text-xl font-semibold mb-2">{venue.name}</h3>
-              <div class="space-y-2 mb-4">
-                <p class="text-gray-600">{venue.address}</p>
-                {venue.url && (
-                  <div>
-                    <a
-                      href={venue.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center text-blue-600 hover:text-blue-800"
-                    >
-                      Visit Website
-                      <svg 
-                        class="w-4 h-4 ml-1" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        stroke-width="2" 
-                        stroke-linecap="round" 
-                        stroke-linejoin="round"
-                      >
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                  </div>
-                )}
+    {filteredNeighborhoods.map((neighborhood) => (
+      <section key={neighborhood._id}>
+        <h4 class="neighborhood">Upper East Side</h4>
+        {neighborhood.venues
+            .filter(venue => venue.events.length > 0)
+            .map((venue) => (
+              <div class="bg-white rounded-lg shadow-md p-6" key={venue._id}>
+                <h4 class="venue">{venue.name}</h4>
+                <p class="address">{venue.address}</p>
+
+                {venue.events.map((event) => (
+                  <li key={event._id}>
+                    <span class="title"><a href={eventLink(venue, event)}">{event.name}</a></span> closes {formatDate(event.endDate)}
+                  </li>
+                  ))}
+
               </div>
-              {venue.events && venue.events.length > 0 && (
-                <div>
-                  <ul class="space-y-2">
-                    {venue.events.map((event) => (
-                      <li key={event._id} class="border-t pt-2">
-                        <h5 class="font-medium">{event.name}</h5>
-                        <p class="text-sm text-gray-600">
-                          {formatDate(event.startDate)} - {formatDate(event.endDate)}
-                        </p>
-                        {event.url && (
-                          <a
-                            href={event.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-sm text-blue-600 hover:text-blue-800"
-                          >
-                            Event Details
-                          </a>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+            ))
+            }
       </section>
     ))}
-  </main>
 </Layout>
 

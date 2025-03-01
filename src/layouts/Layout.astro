@@ -4,6 +4,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
+import "../assets/styles.css"
 ---
 
 <!DOCTYPE html>
@@ -15,16 +16,18 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="bg-gray-100 min-h-screen">
-    <slot />
+  <body>
+    <section id="header">
+      <h2>FILTERIZER</h2>
+    </section>
+    <section id="main">
+      <h3>Neighborhoods</h3>
+      <slot />
+    </section>
+    <section id="footer">
+      <p>A one-page art show recommendation website from <a href="https://www.hoggardwagner.org/">Barry Hoggard and James Wagner</a>.</p>
+    </section>
   </body>
 </html>
 
-<style is:global>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-  body {
-    font-family: 'Inter', sans-serif;
-  }
-</style>
 

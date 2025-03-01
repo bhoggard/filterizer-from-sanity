@@ -9,7 +9,8 @@ export const client = createClient({
 
 export async function getVenuesGroupedByNeighborhood() {
   const today = new Date().toISOString()
-  return await client.fetch(`
+  return await client.fetch(
+    `
     *[_type == "neighborhood"] {
       _id,
       name,
@@ -17,16 +18,17 @@ export async function getVenuesGroupedByNeighborhood() {
         _id,
         name,
         address,
-        url,
+        website,
         "events": *[_type == "event" && references(^._id) && startDate <= $today && endDate >= $today] | order(startDate asc) {
           _id,
           name,
-          startDate,
           endDate,
-          url
+          website
         }
       }
     }
-  `, { today })
+  `,
+    { today },
+  )
 }
 

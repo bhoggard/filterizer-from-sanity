@@ -73,7 +73,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.17em;
+  font-size: 1.2em;
   margin: 1em 0
 }
 
@@ -302,8 +302,10 @@ a {
   text-decoration: none
 }
 
-p {
-  margin: 0.4em
+p.address {
+  font-style: italic;
+  margin: 0.5em 0;
+  font-size: 0.95em;
 }
 
 h3 {
@@ -318,15 +320,22 @@ h4 {
 h4.neighborhood {
   color: #BD2408;
   margin: 1em 0;
-  font-weight: bold
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+h4.venue {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+li {
+  margin-left: 2em;
 }
 
 span.title {
-  font-weight: bold
-}
-
-.opening {
-  margin-bottom: 1em
+  font-size: 0.95em;
+  font-weight: bold;
 }
 
 #footer {
