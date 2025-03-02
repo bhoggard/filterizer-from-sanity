@@ -327,6 +327,7 @@ h4.neighborhood {
 h4.venue {
   font-weight: bold;
   font-size: 1em;
+  margin-top: 1em;
 }
 
 li {

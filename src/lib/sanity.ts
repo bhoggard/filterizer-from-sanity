@@ -14,12 +14,12 @@ export async function getVenuesGroupedByNeighborhood() {
     *[_type == "neighborhood"] {
       _id,
       name,
-      "venues": *[_type == "venue" && references(^._id)] {
+      "venues": *[_type == "venue" && references(^._id)] | order(name asc) {
         _id,
         name,
         address,
         website,
-        "events": *[_type == "event" && references(^._id) && startDate <= $today && endDate >= $today] | order(startDate asc) {
+        "events": *[_type == "event" && references(^._id) && startDate <= $today && endDate >= $today] | order(endDate asc) {
           _id,
           name,
           endDate,
