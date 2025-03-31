@@ -11,7 +11,7 @@ export async function getVenuesGroupedByNeighborhood() {
   const today = new Date().toISOString()
   return await client.fetch(
     `
-    *[_type == "neighborhood"] {
+    *[_type == "neighborhood"] | order(name asc) {
       _id,
       name,
       "venues": *[_type == "venue" && references(^._id)] | order(name asc) {
