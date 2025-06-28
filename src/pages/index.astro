@@ -25,21 +25,21 @@ function eventLink(venue, event) {
 <Layout title="Filterizer">
     
     {filteredNeighborhoods.map((neighborhood) => (
-      <section key={neighborhood._id}>
-        <h4 class="neighborhood">{neighborhood.name}</h4>
+      <section class="pb-2" key={neighborhood._id}>
+        <h4 class="text-red font-semibold text-lg">{neighborhood.name}</h4>
         {neighborhood.venues
             .filter(venue => venue.events.length > 0)
             .map((venue) => (
-              <div class="bg-white rounded-lg shadow-md p-6" key={venue._id}>
-                <h4 class="venue">{venue.name}</h4>
-                <p class="address">{venue.address}</p>
-
+              <div class="py-2" key={venue._id}>
+                <h4 class="font-bold">{venue.name}</h4>
+                <p class="italic">{venue.address}</p>
+                <ul class="list-disc pl-5">
                 {venue.events.map((event) => (
-                  <li key={event._id}>
-                    <span class="title"><a href={eventLink(venue, event)}">{event.name}</a></span> closes {formatDate(event.endDate)}
+                  <li class="pl-1 pb-1" key={event._id}>
+                    <span class="title pl-0"><a class="text-blue font-semibold" href={eventLink(venue, event)}>{event.name}</a></span> closes {formatDate(event.endDate)}
                   </li>
                   ))}
-
+                </ul>
               </div>
             ))
             }
