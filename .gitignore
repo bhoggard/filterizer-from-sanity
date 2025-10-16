@@ -24,3 +24,13 @@ pnpm-debug.log*
 .idea/
 
 .vercel
+
+# Yarn Berry
+.pnp.*
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+!.yarn/cache
+!.yarn/install-state.gz
