@@ -8,7 +8,8 @@ export const client = createClient({
 })
 
 export async function getVenuesGroupedByNeighborhood() {
-  const today = new Date().toISOString()
+  // Get current date in New York timezone as YYYY-MM-DD
+  const nyDate = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' })
   return await client.fetch(
     `
     *[_type == "neighborhood"] | order(name asc) {
@@ -28,7 +29,7 @@ export async function getVenuesGroupedByNeighborhood() {
       }
     }
   `,
-    { today },
+    { today: nyDate },
   )
 }
 

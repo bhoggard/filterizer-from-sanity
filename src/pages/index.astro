@@ -10,10 +10,13 @@ const filteredNeighborhoods = neighborhoodsWithVenues.filter(neighborhood =>
 );
 
 function formatDate(date: string) {
-  return new Date(date).toLocaleDateString('en-US', {
+  // Parse the YYYY-MM-DD date string and display it in NY timezone
+  // Add 'T12:00:00' to avoid timezone offset issues
+  return new Date(date + 'T12:00:00').toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
+    timeZone: 'America/New_York'
   });
 }
 
