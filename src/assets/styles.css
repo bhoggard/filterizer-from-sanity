@@ -7,3 +7,7 @@
   --color-yellow: #FFA500;
   --color-blue: #2361A1;
 }
+
+body {
+  width: 750px;
+}
