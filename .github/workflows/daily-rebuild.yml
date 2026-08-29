@@ -1,0 +1,17 @@
+name: Daily rebuild
+
+# Shows open and close on fixed calendar dates (America/New_York), so the
+# site needs to rebuild once a day even when nobody publishes in Sanity,
+# otherwise a show can linger past its end date or fail to appear on its
+# start date until the next content edit.
+on:
+  schedule:
+    - cron: '0 9 * * *' # ~05:00 America/New_York (EDT) / 04:00 (EST) - safely after NY midnight
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        run: curl -fsS -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
